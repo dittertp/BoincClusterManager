@@ -1,0 +1,162 @@
+<?php
+
+/** Zend_Controller_Request_Http */
+require_once 'Zend/Controller/Request/Http.php';
+
+/** Zend_Uri */
+require_once 'Zend/Uri.php';
+
+/**
+ * Extjs_Controller_Request_RawJson
+ *
+ *
+ * @uses       Zend_Controller_Request_Http
+ * @package    Zend_Controller
+ * @subpackage Request
+ * @todo Currently it only adds the RAW data it should allow for selecting sources, it doesnt right now.
+ */
+class Extjs_Controller_Request_RawJson extends Zend_Controller_Request_Http
+{
+	protected $_paramSources = array('_GET', '_POST','_RAW');
+	protected $_rawPrefix = 'RAW_';
+	/**
+	 * 
+	 * @var integer count of requests in rawdata
+	 */
+	public $requestCount = 0; 
+   /**
+     * Constructor
+     *
+     * If a $uri is passed, the object will attempt to populate itself using
+     * that information.
+     *
+     * @param string|Zend_Uri $uri
+     * @return void
+     * @throws Zend_Controller_Request_Exception when invalid URI passed
+     */
+    public function __construct($uri = null)
+    {
+        parent::__construct($uri);
+		
+        $rawBody = $this->getRawBody();
+        if($rawBody !== false){
+	        $json = Zend_Json::decode($rawBody, Zend_Json::TYPE_ARRAY);
+        }else{
+        	$json = false;
+        }
+        if($json !== false && is_null($json) !== true){
+        	
+        	if(isset($json["tid"])){
+        		$this->requestCount = 1;
+        		$json2[] = $json;
+        		$json = $json2;
+        		unset($json2);
+        	}else{
+        		$this->requestCount = count($json);
+        	}	        
+        	$this->setParam("RawJson", $json);
+        }else{
+			if($this->isPost()){
+				$req = $this->getParams();
+				if(isset($req["extTID"])){
+					$this->requestCount = 1;
+					$json = array();
+					$params = array();
+					foreach ($req as $pname => $pval){
+						switch ($pname){
+							case 'extAction':
+								$pname = 'action';
+								break;
+							case 'extTID':
+								$pname = 'tid';
+								break;
+							case 'extMethod':
+								$pname = 'method';
+								break;
+						}	
+						$params["$pname"] = $pval;
+					}
+					$json[] = $params;
+				}
+				$this->setParam("RawJson", $json);
+			}        	
+        }
+        
+    }
+	
+	
+	
+    /**
+     * Set allowed parameter sources
+     *
+     * Can be empty array, or contain one or more of '_GET' or '_POST' or '_RAW'.
+     *
+     * @param  array $paramSoures
+     * @return Axpa_Controller_Request_RawJson
+     */
+    public function setParamSources(array $paramSources = array())
+    {
+        $this->_paramSources = $paramSources;
+        return $this;
+    }
+	
+    
+/**
+     * Retrieve a parameter
+     *
+     * Retrieves a parameter from the instance. Priority is in the order of
+     * userland parameters (see {@link setParam()}), $_GET, $_POST. If a
+     * parameter matching the $key is not found, null is returned.
+     *
+     * If the $key is an alias, the actual key aliased will be used.
+     *
+     * @param mixed $key
+     * @param mixed $default Default value to use if key not found
+     * @return mixed
+     */
+    public function getParam($key, $default = null)
+    {
+        $keyName = (null !== ($alias = $this->getAlias($key))) ? $alias : $key;
+
+        $paramSources = $this->getParamSources();
+        if (isset($this->_params[$keyName])) {
+            return $this->_params[$keyName];
+        } elseif (in_array('_GET', $paramSources) && (isset($_GET[$keyName]))) {
+            return $_GET[$keyName];
+        } elseif (in_array('_POST', $paramSources) && (isset($_POST[$keyName]))) {
+            return $_POST[$keyName];
+        }
+
+        return $default;
+    }
+
+    /**
+     * Retrieve an array of parameters
+     *
+     * Retrieves a merged array of parameters, with precedence of userland
+     * params (see {@link setParam()}), $_GET, $_POST (i.e., values in the
+     * userland params will take precedence over all others).
+     *
+     * @return array
+     */
+    public function getParams()
+    {
+        $return       = $this->_params;
+        $paramSources = $this->getParamSources();
+        if (in_array('_GET', $paramSources)
+            && isset($_GET)
+            && is_array($_GET)
+        ) {
+            $return += $_GET;
+        }
+        if (in_array('_POST', $paramSources)
+            && isset($_POST)
+            && is_array($_POST)
+        ) {
+            $return += $_POST;
+        }
+        return $return;
+    }
+    
+    
+}

@@ -1,0 +1,62 @@
+.cluster {
+    background-image: url(../img/icons/servers.png) !important;
+}
+
+.node {
+    background-image: url(../img/icons/server.png) !important;
+}
+
+.manage {
+    background-image: url(../img/icons/server-property.png) !important;
+}
+
+.screwdriver {
+    background-image: url(../img/icons/wrench-screwdriver.png) !important;
+}
+
+.add {
+    background-image: url(../img/icons/plus-circle.png) !important;
+}
+
+.delete {
+    background-image: url(../img/icons/minus-circle.png) !important;
+}
+
+.edit {
+    background-image: url(../img/icons/wrench-screwdriver.png) !important;
+}
+
+.accept {
+    background-image: url(../img/icons/tick-circle.png) !important;
+}
+
+.cancel {
+    background-image: url(../img/icons/cross-circle.png) !important;
+}
+
+.refresh {
+    background-image: url(../img/icons/arrow-circle-double.png) !important;
+}
+
+.stop {
+    background-image: url(../img/icons/exclamation-red.png) !important;
+}
+
+.nmw {
+    background-image: url(../img/icons/exclamation.png) !important;
+}
+
+.settings {
+    background-image: url(../img/icons/gear--pencil.png) !important;
+}
+
+.reset {
+    background-image: url(../img/icons/navigation-180.png) !important;
+}
+
+
+
+
+.x-grid-dirty-cell {
+  background-image: none;
+}

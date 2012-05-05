@@ -1,0 +1,8 @@
+[{
+	"text":"Projekte",
+	"id":"manageprojects",
+	"tabtitle":"Projekte Verwalten",
+	"leaf":true,
+	"iconCls":"screwdriver",
+	"type":"p"
+}]

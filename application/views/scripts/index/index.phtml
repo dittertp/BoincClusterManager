@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>BoincClusterManager</title>
+    <link rel="stylesheet" type="text/css" href="../../ext/resources/css/ext-all.css">
+    <link rel="stylesheet" type="text/css" href="css/icons.css">
+    
+    <script type="text/javascript" src="../../ext/bootstrap.js"></script>
+    <script type="text/javascript" src="App/Launcher.js"></script>
+    <script type="text/javascript" src="App/ManagementPanel.js"></script>
+    <script type="text/javascript" src="App/HeaderPanel.js"></script>
+    <script type="text/javascript" src="App/MainPanel.js"></script>
+    <script type="text/javascript" src="App/ManClusterPanel.js"></script>
+    <script type="text/javascript" src="App/ManNodePanel.js"></script>
+    <script type="text/javascript" src="App/ManAdmPanel.js"></script>
+    <script type="text/javascript" src="App/NodePanel.js"></script>
+    <script type="text/javascript" src="App/NodeManPanel.js"></script>
+    <script type="text/javascript" src="App/NodeManGridTb.js"></script>
+    <script type="text/javascript" src="App/NodeWindow.js"></script>
+    <script type="text/javascript" src="App/NodeWindowEdit.js"></script>
+    <script type="text/javascript" src="App/NodeForm.js"></script>
+    <script type="text/javascript" src="App/NodeWorkGrid.js"></script>
+    <script type="text/javascript" src="App/NodeWorkGridTb.js"></script>
+
+    <script type="text/javascript" src="App/NodeProjectGrid.js"></script>
+    <script type="text/javascript" src="App/NodeProjectGridTb.js"></script>
+    <script type="text/javascript" src="App/NodeProjectWindow.js"></script>
+    <script type="text/javascript" src="App/NodeProjectForm.js"></script>
+
+
+    <script type="text/javascript" src="App/NodeMessageGrid.js"></script>
+    <script type="text/javascript" src="App/NodeMessageGridTb.js"></script>
+
+    <script type="text/javascript" src="App/NodeTransferGrid.js"></script>
+    <script type="text/javascript" src="App/NodeTransferGridTb.js"></script>
+    
+    <script type="text/javascript" src="App/ProjectForm.js"></script>
+    <script type="text/javascript" src="App/ProjectManGrid.js"></script>
+    <script type="text/javascript" src="App/ProjectManGridTb.js"></script>
+    <script type="text/javascript" src="App/ProjectWindow.js"></script>
+    <script type="text/javascript" src="App/ProjectWindowEdit.js"></script>
+    
+    <script type="text/javascript" src="App/ClusterPanel.js"></script>
+    <script type="text/javascript" src="App/ClusterOverviewPanel.js"></script>
+    <script type="text/javascript" src="App/ClusterOverviewGridTb.js"></script>
+    <script type="text/javascript" src="App/ClusterOverviewGridGroupTb.js"></script>
+    <script type="text/javascript" src="App/ClusterOverviewGridGTb.js"></script>
+    <script type="text/javascript" src="App/ClusterNodeWindow.js"></script>
+    <script type="text/javascript" src="App/ClusterNodeForm.js"></script>
+    
+    <script type="text/javascript" src="App/PrefForm.js"></script>
+    <script type="text/javascript" src="App/PrefWindow.js"></script>
+    
+    <script type="text/javascript" src="App/ClusterForm.js"></script>
+    <script type="text/javascript" src="App/ClusterManPanel.js"></script>
+    <script type="text/javascript" src="App/ClusterManGridTb.js"></script>
+    <script type="text/javascript" src="App/ClusterWindow.js"></script>
+    <script type="text/javascript" src="App/ClusterWindowEdit.js"></script>
+    
+    <script type="text/javascript" src="App/Models.js"></script>
+    <script type="text/javascript" src="extdirect/getapi"></script>
+    <script type="text/javascript">
+        Ext.Loader.setConfig({enabled: true});
+        Ext.Loader.setPath('Ext.ux', '../ux/');
+        Ext.require([
+                    'Ext.window.MessageBox',
+                    'Ext.tip.*',
+                    'Ext.direct.*',
+                    'Ext.grid.Panel',
+                    'Ext.grid.*',
+                    'Ext.data.*',
+                    'Ext.util.*',
+                    'Ext.Action',
+                    'Ext.tab.*',
+                    'Ext.button.*',
+                    'Ext.form.*',
+                    'Ext.tree.*',
+                    'Ext.panel.*',
+                    'Ext.layout.container.Card',
+                    'Ext.layout.container.Border',
+                    'Ext.container.Viewport',
+                 ]);
+/*
+Overrides for fixing clearOnLoad for TreeStore
+*/
+Ext.override(Ext.data.TreeStore, {
+load: function(options) {
+options = options || {};
+options.params = options.params || {};
+
+
+var me = this,
+node = options.node || me.tree.getRootNode(),
+root;
+
+
+// If there is not a node it means the user hasnt defined a rootnode yet. In this case lets just
+// create one for them.
+if (!node) {
+node = me.setRootNode({
+expanded: true
+});
+}
+
+
+if (me.clearOnLoad) {
+node.removeAll(false);
+}
+
+
+Ext.applyIf(options, {
+node: node
+});
+options.params[me.nodeParam] = node ? node.getId() : 'root';
+
+
+if (node) {
+node.set('loading', true);
+}
+
+
+return me.callParent([options]);
+}
+});
+
+        Ext.onReady(function(){
+                Ext.app.REMOTING_API.enableBuffer = 0;
+        	Ext.direct.Manager.addProvider(Ext.app.REMOTING_API); 
+            var l = new App.Launcher();
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
