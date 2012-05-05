@@ -5,19 +5,19 @@ the classical Boinc Manager.
 
 
 ## Capabilities
-*Full-featured Boinc Manager
-*Cluster (a Set of Nodes) Summary Overview
+* Full-featured Boinc Manager
+* Cluster (a Set of Nodes) Summary Overview
 
 
 ## Roadmap
-*automaticly attaching a Project when a Node joins a Cluster
+* automaticly attaching a Project when a Node joins a Cluster
 
 
 ## Dependences
-*Zend Framework 1.11.11
-*Extjs 4.0.7
-*SQLite
-*PHP5 (+sqlite extension)
+* Zend Framework 1.11.11
+* Extjs 4.0.7
+* SQLite
+* PHP5 (+sqlite extension)
 
 
 ## Installation
