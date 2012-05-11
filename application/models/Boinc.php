@@ -173,7 +173,7 @@ class Application_Model_Boinc extends Application_Model_Resource_Boinc
             
             
             $workunit[$i]["timepast"]=$this->secToTime($timepast);
-            $workunit[$i]["timeremaining"] = $timeremaining;
+            $workunit[$i]["timeremaining"] = $this->secToTime($timeremaining);
             $workunit[$i]["expiry"] = date("D j M Y G:i:s T",(int)$ob->report_deadline);
             $workunit[$i]["status"]=$status;
             $workunit[$i]["statusid"]=$statusid;
