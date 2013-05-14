@@ -3,7 +3,7 @@
 Die Webanwendung ist in PHP geschrieben und basiert auf dem ZendFramwork1 und Extjs4. Ziel ist es den klassischen Boinc client zu ersetzen
 (es wird die selbe xml Schnittstelle verwendet) und zusätzlich die Steuerung von meheren Client auf einmal zu ermöglichen
 
-## Capabilities
+## Features
 * (fast) vollständiger Boinc Client 
 * Clusterbildung (Gruppieren von Clients)
 * Kurzüberblick über Cluster-Nodes (Gesamtanzahl WUs, Fertige WUs)
