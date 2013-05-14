@@ -1,19 +1,20 @@
-# BoincClusterManager - WebApp for managing multiple Boinc-Clients
+# BoincClusterManager - webbasierter Boinc Client
 
-Powered by Zend and Extjs this WebApp is capable to replace
-the classical Boinc Manager.
-
+Die Webanwendung ist in PHP geschrieben und basiert auf dem ZendFramwork1 und Extjs4. Ziel ist es den klassischen Boinc client zu ersetzen
+(es wird die selbe xml Schnittstelle verwendet) und zusätzlich die Steuerung von meheren Client auf einmal zu ermöglichen
 
 ## Capabilities
-* Full-featured Boinc Manager
-* Cluster (a Set of Nodes) Summary Overview
+* (fast) vollständiger Boinc Client 
+* Clusterbildung (Gruppieren von Clients)
+* Kurzüberblick über Cluster-Nodes (Gesamtanzahl WUs, Fertige WUs)
 
 
 ## Roadmap
-* automaticly attaching a Project when a Node joins a Cluster
+* automatisches refreshes
+* automatisches "provisionieren" von neuen Clients
 
 
-## Dependences
+## Abhängigkeiten
 * Zend Framework 1.11.11
 * Extjs 4.0.7
 * SQLite
