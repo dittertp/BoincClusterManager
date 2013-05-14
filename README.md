@@ -10,7 +10,7 @@ Die Webanwendung ist in PHP geschrieben und basiert auf dem ZendFramwork1 und Ex
 
 
 ## Roadmap
-* automatisches refreshes
+* automatische refreshes
 * automatisches "provisionieren" von neuen Clients
 
 
